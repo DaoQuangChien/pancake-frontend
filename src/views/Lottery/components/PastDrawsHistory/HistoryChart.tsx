@@ -44,18 +44,18 @@ const HistoryChart: React.FC<HistoryChartProps> = ({ showLast }) => {
     }
   }
 
-  const chartData = () => {
+  const chartData = (translate) => {
     return {
       labels: getDataArray('lotteryNumber'),
       datasets: [
         {
-          label: t('Pool Size'),
+          label: translate('Pool Size'),
           data: getDataArray('poolSize'),
           yAxisID: 'y-axis-pool',
           ...lineStyles({ color: '#7A6EAA' }),
         },
         {
-          label: t('Burned'),
+          label: translate('Burned'),
           data: getDataArray('burned'),
           yAxisID: 'y-axis-burned',
           ...lineStyles({ color: '#1FC7D4' }),
@@ -156,9 +156,9 @@ const HistoryChart: React.FC<HistoryChartProps> = ({ showLast }) => {
           }
         >
           {showLast === 50 || showLast === 100 ? (
-            <Bar data={chartData()} options={options} />
+            <Bar data={chartData(t)} options={options} />
           ) : (
-            <Line data={chartData()} options={options} type="line" />
+            <Line data={chartData(t)} options={options} type="line" />
           )}
         </Suspense>
       ) : (

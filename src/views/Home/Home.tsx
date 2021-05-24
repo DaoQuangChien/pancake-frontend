@@ -1,36 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Heading, Text, BaseLayout } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import { Heading, BaseLayout } from '@pancakeswap/uikit'
+// import { useTranslation } from 'contexts/Localization'
 import Page from 'components/layout/Page'
-import FarmStakingCard from 'views/Home/components/FarmStakingCard'
-import LotteryCard from 'views/Home/components/LotteryCard'
-import CakeStats from 'views/Home/components/CakeStats'
-import TotalValueLockedCard from 'views/Home/components/TotalValueLockedCard'
-import EarnAPRCard from 'views/Home/components/EarnAPRCard'
-import EarnAssetCard from 'views/Home/components/EarnAssetCard'
-import WinCard from 'views/Home/components/WinCard'
-
-const Hero = styled.div`
-  align-items: center;
-  background-image: url('/images/pan-bg-mobile.svg');
-  background-repeat: no-repeat;
-  background-position: top center;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: auto;
-  margin-bottom: 32px;
-  padding-top: 116px;
-  text-align: center;
-
-  ${({ theme }) => theme.mediaQueries.lg} {
-    background-image: url('/images/pan-bg2.svg'), url('/images/pan-bg.svg');
-    background-position: left center, right center;
-    height: 165px;
-    padding-top: 0;
-  }
-`
+import CardChart from './components/CardChart'
+import CardTradingNow from './components/CardTradingNow'
+import MarketsTable from './components/MarketsTable'
+import { TableSchema } from './types'
 
 const Cards = styled(BaseLayout)`
   align-items: stretch;
@@ -38,78 +14,81 @@ const Cards = styled(BaseLayout)`
   margin-bottom: 24px;
   grid-gap: 24px;
 
-  & > div {
-    grid-column: span 6;
-    width: 100%;
+  & > .card-trading-now {
+    grid-column: span 4;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    & > div {
-      grid-column: span 8;
-    }
-  }
-
-  ${({ theme }) => theme.mediaQueries.lg} {
-    margin-bottom: 32px;
-    grid-gap: 32px;
-
-    & > div {
+    & > .card-trading-now {
       grid-column: span 6;
     }
   }
-`
-
-const CTACards = styled(BaseLayout)`
-  align-items: start;
-  margin-bottom: 24px;
-  grid-gap: 24px;
-
-  & > div {
-    grid-column: span 6;
-  }
-
-  ${({ theme }) => theme.mediaQueries.sm} {
-    & > div {
-      grid-column: span 8;
-    }
-  }
 
   ${({ theme }) => theme.mediaQueries.lg} {
-    margin-bottom: 32px;
-    grid-gap: 32px;
-
-    & > div {
+    & > .card-trading-now {
       grid-column: span 4;
     }
   }
 `
+const StyledRow = styled.div`
+  margin-bottom: 16px;
+`;
 
+const tradingNowData = [
+  {
+    image: '/images/tokens/bnb.png',
+    tokenName: 'Binance',
+    data: {
+      value: 20.00,
+      percentage: '10%'
+    }
+  },
+  {
+    image: '/images/tokens/CAKE.png',
+    tokenName: 'Cake',
+    data: {
+      value: 40.00,
+      percentage: '30%'
+    }
+  },
+]
+const marketsData = [
+  {
+    market: 'eth',
+    indexPrice: '$2,397.89',
+    '24hChange': '23.12%',
+    '1hFunding': '0.000012%',
+    openInterest: '2,114.04',
+    '24hVolume': '$29,546,211',
+    '24hTrades': '3.346'
+  },
+  {
+    market: 'usdt',
+    indexPrice: '$2,397.89',
+    '24hChange': '23.12%',
+    '1hFunding': '0.000012%',
+    openInterest: '2,114.04',
+    '24hVolume': '$29,546,211',
+    '24hTrades': '3.346'
+  }
+]
 const Home: React.FC = () => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
 
   return (
     <Page>
-      <Hero>
-        <Heading as="h1" scale="xl" mb="24px" color="secondary">
-          {t('PancakeSwap')}
-        </Heading>
-        <Text>{t('The #1 AMM and yield farm on Binance Smart Chain.')}</Text>
-      </Hero>
-      <div>
+      <StyledRow>
+        <CardChart />
+      </StyledRow>
+      <StyledRow>
         <Cards>
-          <FarmStakingCard />
-          <LotteryCard />
+          {tradingNowData.map(data => <CardTradingNow {...data} key={data.tokenName} />)}
         </Cards>
-        <CTACards>
-          <EarnAPRCard />
-          <EarnAssetCard />
-          <WinCard />
-        </CTACards>
-        <Cards>
-          <CakeStats />
-          <TotalValueLockedCard />
-        </Cards>
-      </div>
+      </StyledRow>
+      <StyledRow>
+        <Heading scale="xl">Markets</Heading>
+        <MarketsTable data={marketsData} columns={TableSchema} />
+      </StyledRow>
     </Page>
   )
 }

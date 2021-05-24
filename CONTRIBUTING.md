@@ -5,6 +5,15 @@ You can start by reading our [Contribution guidelines](https://docs.pancakeswap.
 
 ## Setup
 
+Create a `.env.development.local` file at the root of the project. Add the following lines inside :
+
+```
+REACT_APP_CROWDIN_APIKEY = ""
+REACT_APP_CROWDIN_PROJECTID = ""
+```
+
+You'll need this in order to get the i18n system to work. Contact a dev if you need these values.
+
 Install the dependencies
 
 ```shell
@@ -30,7 +39,7 @@ Run tests with `yarn test`.
 
 ## Localisation
 
-Keys should be added to translation.json file, in order to be translated to other languages. 
+_In order for the Crowdin API queries to work - you will need `REACT_APP_CROWDIN_APIKEY` & `REACT_APP_CROWDIN_PROJECTID` env variables set in your root `.env.development.local` file_
 
 ### Adding translations
 
@@ -43,10 +52,11 @@ import { useTranslation } from 'contexts/Localization'
 const { t } =  useTranslation()
 ...
 
-t(key, data)
+t(id, 'fallback', data)
 ```
 
-- **key** is the crowdin key of the string you want to translate.
+- **id** is the crowdin id of the string you want to translate.
+- **fallback** is a string fallback used if the id cannot be found.
 - **data** dynamic variables
 
 #### Dynamic variables Example
@@ -54,7 +64,7 @@ t(key, data)
 If a Crowdin translation like this `You have %num% left in your wallet` - would look something like:
 
 ```
-t(`You have %num% left in your wallet`, { num: cakeBalance })
+t(675, `You have ${cakeBalance} left in your wallet`, { num: cakeBalance })
 ```
 
 ## Issue reports

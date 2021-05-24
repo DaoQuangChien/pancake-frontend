@@ -40,9 +40,13 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     href: '/pools',
   },
   {
-    label: t('Prediction (BETA)'),
+    label: t('Prediction'),
     icon: 'PredictionsIcon',
     href: '/prediction',
+    status: {
+      text: 'BETA',
+      color: 'warning',
+    },
   },
   {
     label: t('Lottery'),

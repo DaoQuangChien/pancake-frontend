@@ -64,9 +64,6 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
       return <SkeletonCardTokens />
     }
     if (account && !hasProfile) {
-      if (publicIfoData.status === 'finished') {
-        return <Text textAlign="center">{t('Activate PancakeSwap Profile to take part in next IFO‘s!')}</Text>
-      }
       return <Text textAlign="center">{t('You need an active PancakeSwap Profile to take part in an IFO!')}</Text>
     }
     if (publicIfoData.status === 'coming_soon') {
@@ -122,7 +119,7 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
             />
           </TokenSection>
           <TokenSection img={tokenImage}>
-            <Label> {t(hasClaimed ? '%symbol% received' : '%symbol% to receive', { symbol: token.symbol })}</Label>
+            <Label> {t(hasClaimed ? '%symbol% received' : '%symbol% to received', { symbol: currency.symbol })}</Label>
             <Flex alignItems="center">
               <Value>{getBalanceNumber(userPoolCharacteristics.offeringAmountInToken, token.decimals)}</Value>
               {!hasClaimed && userPoolCharacteristics.offeringAmountInToken.isEqualTo(0) && (

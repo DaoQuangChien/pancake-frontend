@@ -218,7 +218,7 @@ const CardUserInfo: React.FC<YourScoreProps> = ({
                   currentMedal={medal.current}
                   hideArrow
                 >
-                  <Heading scale="lg">{t('HECK YEAH!')}</Heading>
+                  <Heading scale="lg">{t('HECK YES!')}</Heading>
                 </NextRankBox>
               ) : (
                 <NextRankBox

@@ -23,10 +23,6 @@ const Container = styled(Flex)`
   }
 `
 
-const AchievementFlex = styled(Flex)<{ isFinished: boolean }>`
-  ${({ isFinished }) => (isFinished ? 'filter: grayscale(100%)' : '')};
-`
-
 const StyledLinkExternal = styled(LinkExternal)`
   margin-top: 32px;
   ${({ theme }) => theme.mediaQueries.md} {
@@ -42,7 +38,7 @@ const Achievement: React.FC<Props> = ({ ifo, publicIfoData }) => {
 
   return (
     <Container>
-      <AchievementFlex isFinished={publicIfoData.status === 'finished'} alignItems="center" flexGrow={1}>
+      <Flex alignItems="center" flexGrow={1}>
         <Image src={`/images/achievements/ifo-${tokenName}.svg`} width={56} height={56} mr="8px" />
         <Flex flexDirection="column">
           <Text color="secondary" fontSize="12px">
@@ -65,7 +61,7 @@ const Achievement: React.FC<Props> = ({ ifo, publicIfoData }) => {
             <Skeleton minHeight={18} width={80} />
           )}
         </Flex>
-      </AchievementFlex>
+      </Flex>
       <StyledLinkExternal href={ifo.articleUrl}>
         {t('Learn more about %title%', { title: campaignTitle })}
       </StyledLinkExternal>

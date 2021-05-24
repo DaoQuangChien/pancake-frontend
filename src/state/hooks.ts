@@ -7,7 +7,7 @@ import { orderBy } from 'lodash'
 import { Team } from 'config/constants/types'
 import Nfts from 'config/constants/nfts'
 import { getWeb3NoAccount } from 'utils/web3'
-import { getBalanceAmount } from 'utils/formatBalance'
+import { getBalanceNumber } from 'utils/formatBalance'
 import { BIG_ZERO } from 'utils/bigNumber'
 import useRefresh from 'hooks/useRefresh'
 import { filterFarmsByQuoteToken } from 'utils/farmsPriceHelpers'
@@ -105,7 +105,7 @@ export const useBusdPriceFromPid = (pid: number): BigNumber => {
   }
 
   if (farm.quoteToken.symbol === 'wBNB') {
-    return bnbPriceBusd.gt(0) ? bnbPriceBusd.times(farm.tokenPriceVsQuote) : BIG_ZERO
+    return bnbPriceBusd.gt(0) && bnbPriceBusd.times(farm.tokenPriceVsQuote)
   }
 
   // Possible alternative farm quoteTokens:
@@ -128,7 +128,7 @@ export const useBusdPriceFromPid = (pid: number): BigNumber => {
   return BIG_ZERO
 }
 
-export const useBusdPriceFromToken = (tokenSymbol: string): BigNumber | null => {
+export const useBusdPriceFromToken = (tokenSymbol: string) => {
   const tokenFarmForPriceCalc = useFarmFromTokenSymbol(tokenSymbol)
   const tokenPrice = useBusdPriceFromPid(tokenFarmForPriceCalc?.pid)
   return tokenPrice
@@ -137,19 +137,11 @@ export const useBusdPriceFromToken = (tokenSymbol: string): BigNumber | null => 
 export const useLpTokenPrice = (symbol: string) => {
   const farm = useFarmFromLpSymbol(symbol)
   const farmTokenPriceInUsd = useBusdPriceFromPid(farm.pid)
-  let lpTokenPrice = BIG_ZERO
-
-  if (farm.lpTotalSupply && farm.lpTotalInQuoteToken) {
-    // Total value of base token in LP
-    const valueOfBaseTokenInFarm = farmTokenPriceInUsd.times(farm.tokenAmountTotal)
-    // Double it to get overall value in LP
-    const overallValueOfAllTokensInFarm = valueOfBaseTokenInFarm.times(2)
-    // Divide total value of all tokens, by the number of LP tokens
-    const totalLpTokens = getBalanceAmount(farm.lpTotalSupply)
-    lpTokenPrice = overallValueOfAllTokensInFarm.div(totalLpTokens)
-  }
-
-  return lpTokenPrice
+  const lpTokenPrice = new BigNumber(getBalanceNumber(farm.lpTotalSupply))
+    .div(farm.lpTotalInQuoteToken)
+    .times(farmTokenPriceInUsd)
+    .times(2)
+  return farm.lpTotalSupply && farm.lpTotalInQuoteToken ? lpTokenPrice : BIG_ZERO
 }
 
 // Pools
@@ -341,12 +333,12 @@ export const useGetApiPrice = (address: string) => {
 }
 
 export const usePriceBnbBusd = (): BigNumber => {
-  const bnbBusdFarm = useFarmFromPid(252)
+  const bnbBusdFarm = useFarmFromPid(2)
   return bnbBusdFarm.tokenPriceVsQuote ? new BigNumber(1).div(bnbBusdFarm.tokenPriceVsQuote) : BIG_ZERO
 }
 
 export const usePriceCakeBusd = (): BigNumber => {
-  const cakeBnbFarm = useFarmFromPid(251)
+  const cakeBnbFarm = useFarmFromPid(1)
   const bnbBusdPrice = usePriceBnbBusd()
 
   const cakeBusdPrice = cakeBnbFarm.tokenPriceVsQuote ? bnbBusdPrice.times(cakeBnbFarm.tokenPriceVsQuote) : BIG_ZERO

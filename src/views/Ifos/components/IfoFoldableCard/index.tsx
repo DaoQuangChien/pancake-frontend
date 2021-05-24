@@ -25,18 +25,18 @@ interface IfoFoldableCardProps {
   isInitiallyVisible: boolean
 }
 
-const getRibbonComponent = (ifo: Ifo, status: IfoStatus, t: any) => {
+const getRibbonComponent = (status: IfoStatus, t: any) => {
   if (status === 'coming_soon') {
     return <CardRibbon variantColor="textDisabled" ribbonPosition="left" text={t('Coming Soon')} />
   }
 
-  if (status === 'live' || (status === 'finished' && ifo.isActive)) {
+  if (status === 'live') {
     return (
       <CardRibbon
         variantColor="primary"
         ribbonPosition="left"
         style={{ textTransform: 'uppercase' }}
-        text={status === 'live' ? `${t('Live')}!` : `${t('Finished')}!`}
+        text={`${t('Live')}!`}
       />
     )
   }
@@ -94,7 +94,7 @@ const IfoFoldableCard: React.FC<IfoFoldableCardProps> = ({ ifo, publicIfoData, w
   const [isVisible, setIsVisible] = useState(isInitiallyVisible)
   const { t } = useTranslation()
 
-  const Ribbon = getRibbonComponent(ifo, publicIfoData.status, t)
+  const Ribbon = getRibbonComponent(publicIfoData.status, t)
   const isActive = publicIfoData.status !== 'finished' && ifo.isActive
 
   return (

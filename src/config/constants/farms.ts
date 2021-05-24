@@ -39,66 +39,6 @@ const farms: FarmConfig[] = [
    * V3 by order of release (some may be out of PID order due to multiplier boost)
    */
   {
-    pid: 389,
-    lpSymbol: 'CAKE-BUSD LP',
-    lpAddresses: {
-      97: '',
-      56: '0x804678fa97d91B974ec2af3c843270886528a9E6',
-    },
-    token: tokens.cake,
-    quoteToken: tokens.busd,
-  },
-  {
-    pid: 388,
-    lpSymbol: 'CYC-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0xecf30fbecfa642012f54212a3be92eef1e48edac',
-    },
-    token: tokens.cyc,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 387,
-    lpSymbol: 'XEND-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0xcecfc2789af72ed151589a96a59f3a1abc65c3b5',
-    },
-    token: tokens.xend,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 296,
-    lpSymbol: 'HGET-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0xF74ee1e10e097dc326a2ad004F9Cc95CB71088d3',
-    },
-    token: tokens.hget,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 386,
-    lpSymbol: 'HOTCROSS-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0xf23bad605e94de0e3b60c9718a43a94a5af43915',
-    },
-    token: tokens.hotcross,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 385,
-    lpSymbol: 'RFOX-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0x8e04b3972b5c25766c681dfd30a8a1cbf6dcc8c1',
-    },
-    token: tokens.rfox,
-    quoteToken: tokens.wbnb,
-  },
-  {
     pid: 384,
     lpSymbol: 'WMASS-BUSD LP',
     lpAddresses: {
@@ -966,6 +906,16 @@ const farms: FarmConfig[] = [
       56: '0x1F37d4226d23d09044B8005c127C0517BD7e94fD',
     },
     token: tokens.lit,
+    quoteToken: tokens.wbnb,
+  },
+  {
+    pid: 296,
+    lpSymbol: 'HGET-BNB LP',
+    lpAddresses: {
+      97: '',
+      56: '0xF74ee1e10e097dc326a2ad004F9Cc95CB71088d3',
+    },
+    token: tokens.hget,
     quoteToken: tokens.wbnb,
   },
   {

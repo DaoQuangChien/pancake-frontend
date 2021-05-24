@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
-import { DEFAULT_GAS } from 'config'
 import styled from 'styled-components'
 import { Modal, Text, Flex, Button, HelpIcon, AutoRenewIcon, useTooltip } from '@pancakeswap/uikit'
 import { getBalanceNumber } from 'utils/formatBalance'
@@ -52,7 +51,7 @@ const BountyModal: React.FC<BountyModalProps> = ({
   const handleConfirmClick = async () => {
     cakeVaultContract.methods
       .harvest()
-      .send({ from: account, gas: DEFAULT_GAS })
+      .send({ from: account })
       .on('sending', () => {
         setPendingTx(true)
       })
@@ -68,7 +67,6 @@ const BountyModal: React.FC<BountyModalProps> = ({
           t('There may be an issue with your transaction, or another user claimed the bounty first.'),
         )
         setPendingTx(false)
-        onDismiss()
       })
   }
 

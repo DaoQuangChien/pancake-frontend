@@ -8,11 +8,10 @@ import useToast from 'hooks/useToast'
 
 interface Props {
   poolId: PoolIds
-  ifoVersion: number
   walletIfoData: WalletIfoData
 }
 
-const ClaimButton: React.FC<Props> = ({ poolId, ifoVersion, walletIfoData }) => {
+const ClaimButton: React.FC<Props> = ({ poolId, walletIfoData }) => {
   const userPoolCharacteristics = walletIfoData[poolId]
   const { t } = useTranslation()
   const { account } = useWeb3React()
@@ -23,13 +22,7 @@ const ClaimButton: React.FC<Props> = ({ poolId, ifoVersion, walletIfoData }) => 
   const handleClaim = async () => {
     try {
       setPendingTx(true)
-
-      if (ifoVersion === 1) {
-        await walletIfoData.contract.methods.harvest().send({ from: account })
-      } else {
-        await walletIfoData.contract.methods.harvestPool(poolId === PoolIds.poolBasic ? 0 : 1).send({ from: account })
-      }
-
+      await walletIfoData.contract.methods.harvestPool(poolId === PoolIds.poolBasic ? 0 : 1).send({ from: account })
       walletIfoData.setIsClaimed(poolId)
       toastSuccess(t('Success!'), t('You have successfully claimed your rewards.'))
     } catch (error) {

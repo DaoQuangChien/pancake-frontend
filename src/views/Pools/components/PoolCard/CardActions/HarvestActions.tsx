@@ -28,12 +28,11 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
   const formattedBalance = formatNumber(earningTokenBalance, 3, 3)
 
   const earningTokenPrice = useBusdPriceFromToken(earningToken.symbol)
-  const earningTokenPriceAsNumber = earningTokenPrice ? earningTokenPrice.toNumber() : 0
-  const earningTokenDollarBalance = getBalanceNumber(
-    earnings.multipliedBy(earningTokenPriceAsNumber),
-    earningToken.decimals,
-  )
-  const earningsDollarValue = formatNumber(earningTokenDollarBalance)
+  const earningTokenPriceAsNumber = earningTokenPrice && earningTokenPrice.toNumber()
+  const earningTokenDollarBalance =
+    earningTokenPriceAsNumber &&
+    getBalanceNumber(earnings.multipliedBy(earningTokenPriceAsNumber), earningToken.decimals)
+  const earningsDollarValue = earningTokenDollarBalance && formatNumber(earningTokenDollarBalance)
 
   const fullBalance = getFullDisplayBalance(earnings, earningToken.decimals)
   const hasEarnings = earnings.toNumber() > 0
@@ -64,23 +63,21 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
               ) : (
                 <Heading color="textDisabled">0</Heading>
               )}
-              {earningTokenPriceAsNumber !== 0 && (
-                <Text fontSize="12px" color={hasEarnings ? 'textSubtle' : 'textDisabled'}>
-                  ~
-                  {hasEarnings ? (
-                    <Balance
-                      display="inline"
-                      fontSize="12px"
-                      color="textSubtle"
-                      decimals={2}
-                      value={earningTokenDollarBalance}
-                      unit=" USD"
-                    />
-                  ) : (
-                    '0 USD'
-                  )}
-                </Text>
-              )}
+              <Text fontSize="12px" color={hasEarnings ? 'textSubtle' : 'textDisabled'}>
+                ~
+                {hasEarnings ? (
+                  <Balance
+                    display="inline"
+                    fontSize="12px"
+                    color="textSubtle"
+                    decimals={2}
+                    value={earningTokenDollarBalance}
+                    unit=" USD"
+                  />
+                ) : (
+                  '0 USD'
+                )}
+              </Text>
             </>
           )}
         </Flex>

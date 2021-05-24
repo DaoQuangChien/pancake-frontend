@@ -10,7 +10,7 @@ const UnstakingFeeCountdownRow = () => {
   const { t } = useTranslation()
   const { account } = useWeb3React()
   const {
-    userData: { lastDepositedTime, userShares },
+    userData: { lastDepositedTime },
     fees: { withdrawalFee, withdrawalFeePeriod },
   } = useCakeVault()
   const feeAsDecimal = withdrawalFee / 100 || '-'
@@ -30,19 +30,18 @@ const UnstakingFeeCountdownRow = () => {
 
   const { secondsRemaining, hasUnstakingFee } = useWithdrawalFeeTimer(
     parseInt(lastDepositedTime, 10),
-    userShares,
     withdrawalFeePeriod,
   )
 
   // The user has made a deposit, but has no fee
-  const noFeeToPay = lastDepositedTime && !hasUnstakingFee && userShares.gt(0)
+  const noFeeToPay = lastDepositedTime && !hasUnstakingFee
 
   // Show the timer if a user is connected, has deposited, and has an unstaking fee
   const shouldShowTimer = account && lastDepositedTime && hasUnstakingFee
 
   const getRowText = () => {
     if (noFeeToPay) {
-      return t('Unstaking Fee').toLowerCase()
+      return t('Unstaking fee').toLowerCase()
     }
     if (shouldShowTimer) {
       return t('unstaking fee until')

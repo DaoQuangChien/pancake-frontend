@@ -1344,33 +1344,6 @@ const tokens = {
     decimals: 8,
     projectLink: 'https://massnet.org/en/',
   },
-  rfox: {
-    symbol: 'RFOX',
-    address: {
-      56: '0x0a3a21356793b49154fd3bbe91cbc2a16c0457f5',
-      97: '',
-    },
-    decimals: 18,
-    projectLink: 'https://www.redfoxlabs.io/',
-  },
-  xend: {
-    symbol: 'XEND',
-    address: {
-      56: '0x4a080377f83D669D7bB83B3184a8A5E61B500608',
-      97: '',
-    },
-    decimals: 18,
-    projectLink: 'https://xend.finance/',
-  },
-  cyc: {
-    symbol: 'CYC',
-    address: {
-      56: '0x810ee35443639348adbbc467b33310d2ab43c168',
-      97: '',
-    },
-    decimals: 18,
-    projectLink: 'https://cyclone.xyz/',
-  },
 }
 
 export default tokens

@@ -70,7 +70,7 @@ const Pools: React.FC = () => {
               {t('Syrup Pools')}
             </Heading>
             <Heading scale="md" color="text">
-              {t('Just stake some tokens to earn.')}
+              {t('Simply stake tokens to earn.')}
             </Heading>
             <Heading scale="md" color="text">
               {t('High APR, low risk.')}

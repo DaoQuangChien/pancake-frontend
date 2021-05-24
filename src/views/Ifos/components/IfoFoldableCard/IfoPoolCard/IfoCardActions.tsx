@@ -35,7 +35,7 @@ const IfoCardActions: React.FC<Props> = ({ poolId, ifo, publicIfoData, walletIfo
   if (!hasProfile) {
     return (
       <Button as={Link} to="/profile" width="100%">
-        {t('Activate your Profile')}
+        {t('Activate your profile')}
       </Button>
     )
   }
@@ -49,7 +49,7 @@ const IfoCardActions: React.FC<Props> = ({ poolId, ifo, publicIfoData, walletIfo
         !userPoolCharacteristics.hasClaimed &&
         (userPoolCharacteristics.offeringAmountInToken.isGreaterThan(0) ||
           userPoolCharacteristics.refundingAmountInLP.isGreaterThan(0)) && (
-          <ClaimButton poolId={poolId} ifoVersion={ifo.version} walletIfoData={walletIfoData} />
+          <ClaimButton poolId={poolId} walletIfoData={walletIfoData} />
         )}
     </>
   )

@@ -11,10 +11,8 @@ export type TranslatableText =
     }
 
 export interface Farm extends FarmConfig {
-  tokenAmountMc?: BigNumber
-  quoteTokenAmountMc?: BigNumber
-  tokenAmountTotal?: BigNumber
-  quoteTokenAmountTotal?: BigNumber
+  tokenAmount?: BigNumber
+  quoteTokenAmount?: BigNumber
   lpTotalInQuoteToken?: BigNumber
   lpTotalSupply?: BigNumber
   tokenPriceVsQuote?: BigNumber

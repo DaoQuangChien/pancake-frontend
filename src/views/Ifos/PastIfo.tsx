@@ -11,7 +11,7 @@ const PastIfo = () => {
   return (
     <IfoLayout>
       {inactiveIfo.map((ifo) =>
-        ifo.version === 1 ? (
+        ifo.isV1 ? (
           <IfoCardV1Data key={ifo.id} ifo={ifo} />
         ) : (
           <IfoCardV2Data key={ifo.id} ifo={ifo} isInitiallyVisible={false} />
