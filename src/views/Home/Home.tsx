@@ -32,7 +32,7 @@ const Cards = styled(BaseLayout)`
 `
 const StyledRow = styled.div`
   margin-bottom: 16px;
-`;
+`
 
 const tradingNowData = [
   {

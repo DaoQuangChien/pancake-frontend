@@ -28,7 +28,7 @@ const WrapperLeft = styled.div`
     font-size: 13px;
     margin-bottom: 8px;
   }
-`;
+`
 const AnalysisFlexContainer = styled(FlexContainer)`
   flex-direction: column;
 

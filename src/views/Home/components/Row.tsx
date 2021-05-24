@@ -13,7 +13,6 @@ const CellInner = styled.div`
     padding: 24px 32px;
   }
 `
-
 const StyledTr = styled.tr`
   cursor: pointer;
   border-bottom: 2px solid ${({ theme }) => theme.colors.borderColor};
